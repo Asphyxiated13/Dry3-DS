@@ -19,6 +19,7 @@ We will remove the word as normal, then update the ranks along it's path top to 
 Returns the rank of the root of the tree, we always have that stored and so this takes O(1) time complexity.
 \section{}
 No need to modify the rest of the data structure.\\
-We will simply search for s in the Trie tree, then when we find it, we will check the ranks of it's children, which indicate if it's chidren subtrees have any subwords. There exists $s_1, s_2$ such that s is a subword of $s_1$ which is a subword of $s_2$, iff one of the ranks of s's final letter children is on, as s is a subword of some word iff it's final letter has letter children, such letter children rank is turned on iff they themselves contain a word(which s is a subword of) that is a subword.
+We will simply search for s in the Trie tree, then when we find it(If we are unable to traverse the tree until we reaches s's final letter, we return false, as a it cannot be a subword of a any other word if there are no words beginning in it's letters), we will return the rank of the node's final letter.
+There exists $s_1, s_2$ such that s is a subword of $s_1$ which is a subword of $s_2$, iff if the rank of the final letter is ln, as a rank of node is turned on only if some word in it's subtree is a subword of another word in it's subtree, and s would be a subword of the original word.\\
 The search takes $O(|s|)$, checking the ranks is O($|\Sigma |O(1)$)=O(1), meaning we have $O(|s|)$ time complexity.
 \end{document}
