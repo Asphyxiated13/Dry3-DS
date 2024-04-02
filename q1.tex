@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsthm}
+\begin{document}
+It is impossible to create a data structure satisfying the after mentioned demands. Proof:
+Assume by contradiction that such a database exits, call it A. We will show that under this assumption we have an array sorting algorithm with $O(nlog(log(n)))$ time complexity, which we learned is impossible.\\
+Provided an array of size n, we will parse over the array and multiply 
+all of it's elements by 2, and then add 1 to them. Note that
+f(x) = 2x + 1 is an injection. We are parsing over an array of size n and performing O(1) operations at each stage, and
+so this takes O(n) time.\\
+Now we will insert all the elements of the array into A. We are inserting n elements into the array, and as $\sum_{i=1}^{n}O(loglogi) = O(\sum_{i=1}^{n}loglogn) = O(nloglogn)$
+is the time complexity.\\
+Now we will perform the following for n iterations:\\
+On the i'th iteration, pop the minimal element in A, and place it in the i'th place in the array. This is performed n times, and so
+$\sum_{i=1}^{n}O(loglog(n-i)) = O(\sum_{i=1}^{n}loglogn) = O(nloglogn)$
+is the time complexity.\\
+We may convert the array back to it's original elements by parsing over it and subtracting 1 from it's elements then dividing them by 2. $g(x) = \frac{(x-1)}{2}$,  and so $g(f(x)) = x$. THis is again takes O(n) time.\\
+Summing over the complexities of each part we have O(nloglogn) for the total algorithm, which sorted the array(The algorithm performs selection sort using A). $\qed$
+
+\end{document}

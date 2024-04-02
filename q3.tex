@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsthm}
+\begin{document}
+\section{}
+We will use Trie as our underlying database, with some slight modifications. The Trie tree nodes will also have a rank, the rank is a bool
+which indicates whether there are any words that are subwords of other words
+in it's subtree(the subtree that has that node as it's root).
+We will also store a flag indicating whether there are any words in the 
+database that are subwords of other words in the database - note that
+this is in fact a rank, it is determined by whether the letter stored
+in the node is the end of a word, which is a matter of checking if it has a \$ child(in which case, it is a subword iff the node has letter children) and whether children have a subword in their subtree.
+Now the root of the whole tree will indicate whether the database has any subwords.
+If we want to allow duplications, we could store a counter in the \$ nodes, to indicate how many words end in it's parent letter and then determine the rank using that(if we want words to be subwords of identical words we would condsider a counter of 2 or more to indicate a subword in addition to the previous indications). 
+\subsection*{Insert}
+We will insert the word as normal, when we finish, we will go over the path, top to bottom and update the ranks. We have $O(|s|)$ operations for the normal insertion route, and $O(|s|)$ operations to update the ranks(updating a single rank is O(1), and we do it |s| times), and so we have $O(|s|)$ time complexity.
+\subsection*{Remove}
+We will remove the word as normal, then update the ranks along it's path top to bottom again, and so we have $O(|s|)$ time complexity for the same reason as insert.
+\subsection*{PrefixExists}
+Returns the rank of the root of the tree, we always have that stored and so this takes O(1) time complexity.
+\section{}
+No need to modify the rest of the data structure.\\
+We will simply search for s in the Trie tree, then when we find it, we will check the ranks of it's children, which indicate if it's chidren subtrees have any subwords. There exists $s_1, s_2$ such that s is a subword of $s_1$ which is a subword of $s_2$, iff one of the ranks of s's final letter children is on, as s is a subword of some word iff it's final letter has letter children, such letter children rank is turned on iff they themselves contain a word(which s is a subword of) that is a subword.
+The search takes $O(|s|)$, checking the ranks is O($|\Sigma |O(1)$)=O(1), meaning we have $O(|s|)$ time complexity.
+\end{document}
